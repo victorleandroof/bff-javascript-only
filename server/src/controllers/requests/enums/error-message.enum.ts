@@ -1,0 +1,4 @@
+export enum ErrorMessage {
+    EMAIL_INVALID = 'EMAIL_INVALID',
+    PASSWORD_INVALID = 'PASSWORD_INVALID',
+}

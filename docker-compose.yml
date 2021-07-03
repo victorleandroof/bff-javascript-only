@@ -1,0 +1,9 @@
+version: '3.4'
+
+services:
+    redis:
+        image: 'docker.io/bitnami/redis:6.0-debian-10'
+        environment:
+        - REDIS_PASSWORD=bitnami
+        ports:
+        - '6379:6379'
