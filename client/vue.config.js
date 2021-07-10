@@ -10,13 +10,16 @@ module.exports = {
   publicPath: "/login/public",
   pluginOptions: {
     "style-resources-loader": {
-      patterns: [resolve("stylesheet/argon.scss")],
+      patterns: [resolve("stylesheet/main.scss")],
       preProcessor: "scss",
     },
     lintStyleOnBuild: false,
     stylelint: {},
   },
   configureWebpack: {
+    entry: {
+      'theme': resolve('stylesheet/theme.ts')
+    },
     resolve: {
       alias: {
         components: resolve("components"),

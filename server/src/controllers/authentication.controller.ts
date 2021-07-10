@@ -28,6 +28,6 @@ export class AuthenticationController {
                 maxAge: sessionInfo.maxAge,
             }
         );
-        return response.redirect(ApplicationConfig.ORCHESTRATOR_URL);
+        return response.json({ url: ApplicationConfig.ORCHESTRATOR_URL });
     }
 }

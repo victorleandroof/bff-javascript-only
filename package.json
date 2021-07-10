@@ -4,6 +4,7 @@
   "scripts": {
     "install:all": "npm i && (cd server && npm i) && (cd client && npm i)",
     "lint": "(cd server && npm run eslint) && (cd client && npm run eslint)",
+    "start:dev": "cd server && npm run start:dev",
     "sass-lint": "(cd client && npm run sass-lint)",
     "test": "(cd server && npm run test) && (cd client && npm run test)"
   }
