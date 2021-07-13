@@ -23,16 +23,19 @@ export class AuthenticationService {
 
     public getSessionInfo(iLogin: ILogin): Observable<ISessionInfo> {
         return forkJoin({
-            userInformation: this.findUserInformation(iLogin.email),
+            userInformation: this.findUserInformation(iLogin.username),
             oAuthToken: this.getOAuth2Token(iLogin),
         }).pipe(
             map((results) => {
+                const currentDate = Date.now();
+                const expirationDate =
+                    currentDate + 1000 * results.oAuthToken.expires_in;
                 return {
                     token: `${results.oAuthToken.token_type} ${results.oAuthToken.access_token}`,
                     scopes: results.oAuthToken.scope,
-                    userId: results.userInformation.userId,
-                    created_at: Date.now(),
-                    expiration_at: results.oAuthToken.expires_in,
+                    userId: results.userInformation.user_id,
+                    created_at: currentDate,
+                    expiration_at: expirationDate,
                 } as IAuthenticationSession;
             }),
             map((authenticationSession) => {

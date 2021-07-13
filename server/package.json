@@ -10,6 +10,8 @@
     "prestart": "npm run build",
     "start": "node dist/main",
     "build:client": "cd ../client && npm run build",
+    "prestart:test": "rm -rf dist && npm run build:client",
+    "start:test": "nest start --watch -e 'node -r dotenv/config' -- dotenv_config_path=./.env.test",
     "prestart:dev": "rm -rf dist && npm run build:client",
     "start:dev": "nest start --watch -e 'node -r dotenv/config' -- dotenv_config_path=./.env.dev",
     "start:debug": "npm run start:dev -- --debug",

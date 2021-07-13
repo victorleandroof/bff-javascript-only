@@ -20,12 +20,16 @@ export class AuthenticationController {
         const sessionInfo = await this.authenticationService
             .getSessionInfo(authenticationRequest)
             .toPromise();
+        console.log(
+            sessionInfo,
+            new Date(sessionInfo.maxAge).toLocaleDateString('pt-BR')
+        );
         response.cookie(
             ApplicationConfig.SESSION_COOKIE_NAME,
             sessionInfo.key,
             {
                 domain: ApplicationConfig.COOKIE_DOMAIN_VALIDATION,
-                maxAge: sessionInfo.maxAge,
+                expires: new Date(sessionInfo.maxAge),
             }
         );
         return response.json({ url: ApplicationConfig.ORCHESTRATOR_URL });

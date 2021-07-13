@@ -1,5 +1,5 @@
 export interface IUserProfile {
-    userId: string;
+    user_id: string;
     firstname: string;
     lastname: string;
     email: string;

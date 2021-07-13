@@ -33,7 +33,7 @@ export class ApiExceptionFilter implements ExceptionFilter {
             });
         }
         return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-            status: httpException.status,
+            status: HttpStatus.INTERNAL_SERVER_ERROR,
             message: MessageErrorEnum.INTERNAL,
         });
     }

@@ -5,7 +5,19 @@
     "install:all": "npm i && (cd server && npm i) && (cd client && npm i)",
     "lint": "(cd server && npm run eslint) && (cd client && npm run eslint)",
     "start:dev": "cd server && npm run start:dev",
+    "start:test-component": "./node_modules/.bin/jest --config ./tests/component/jest.config.ts",
     "sass-lint": "(cd client && npm run sass-lint)",
-    "test": "(cd server && npm run test) && (cd client && npm run test)"
+    "test": "(cd server && npm run test) && (cd client && npm run test)",
+    "start:mock": "ts-node ./tests/component/mock_server.ts"
+  },
+  "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "@types/node": "^14.17.5",
+    "@types/supertest": "^2.0.11",
+    "jest": "^27.0.6",
+    "mockttp": "^2.1.1",
+    "supertest": "^6.1.3",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.1.0"
   }
 }

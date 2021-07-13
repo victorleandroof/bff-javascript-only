@@ -33,12 +33,23 @@
             >
           </b-col>
           <b-col cols="12" class="pb-3">
-            <b-toast id="invalidForm" variant="danger" static no-auto-hide data-test-toast>
+            <b-toast
+              id="invalidForm"
+              variant="danger"
+              static
+              no-auto-hide
+              data-test-toast
+            >
               Usuário ou senha Inválido
             </b-toast>
           </b-col>
           <b-col cols="12">
-            <b-form @submit="onSubmit" method="post" action="/login" data-test-form-login>
+            <b-form
+              @submit="onSubmit"
+              method="post"
+              action="/login"
+              data-test-form-login
+            >
               <b-form-group label="Usuário:" label-for="username">
                 <b-form-input
                   id="username"
@@ -52,10 +63,26 @@
                   id="password"
                   v-model="password"
                   type="password"
-                   data-test-password
+                  data-test-password
                 ></b-form-input>
               </b-form-group>
-              <b-button type="submit" block variant="success" data-test-submit>Entrar</b-button>
+              <b-overlay
+                :show="isLoading"
+                rounded
+                opacity="0.6"
+                spinner-small
+                spinner-variant="success"
+                class="d-inline-block"
+              >
+                <b-button
+                  type="submit"
+                  :disabled="isLoading"
+                  block
+                  variant="success"
+                  data-test-submit
+                  >Entrar</b-button
+                >
+              </b-overlay>
             </b-form>
           </b-col>
           <b-col cols="12" class="pt-3">
@@ -83,17 +110,24 @@ import "bootstrap-vue";
 export default class Home extends Vue {
   public username = "";
   public password = "";
+  public isLoading = false;
 
   public async onSubmit(event: Event) {
     event.preventDefault();
     if (!this.isValidForm()) {
       this.$bvToast.show("invalidForm");
-    }
-    try {
-       const loginCallback = await ApiService.login({ username: this.username, password: this.password});
-       window.location.replace(loginCallback.url);
-    } catch(error) {
-      this.$bvToast.show("invalidForm");
+    } else {
+      this.isLoading = true;
+      try {
+        const loginCallback = await ApiService.login({
+          username: this.username,
+          password: this.password,
+        });
+        window.location.replace(loginCallback.url);
+      } catch (error) {
+        this.$bvToast.show("invalidForm");
+      }
+      this.isLoading = false;
     }
   }
 
