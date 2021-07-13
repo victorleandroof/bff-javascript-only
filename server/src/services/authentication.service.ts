@@ -1,15 +1,15 @@
 import * as crypto from 'crypto';
 import { RedisClient } from '@infrastructure/redis/redis.interfaces';
 import { HttpService, Inject, Injectable } from '@nestjs/common';
-import { AuthenticationException } from '@servicesexceptions';
+import { AuthenticationException } from '@services/exceptions';
 import {
     IAuthenticationSession,
     ILogin,
     IOauth,
     ISessionInfo,
-} from '@servicesinterfaces/authentication.interface';
-import { IUserProfile } from '@servicesinterfaces/userprofile.interface';
-import { ApplicationConfig } from '@srcapplication.config';
+} from '@services/interfaces/authentication.interface';
+import { IUserProfile } from '@services/interfaces/userprofile.interface';
+import { ApplicationConfig } from '@src/application.config';
 import { v4 as uuid } from 'uuid';
 import { forkJoin, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';

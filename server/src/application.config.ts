@@ -1,6 +1,6 @@
 import { env } from 'process';
 
-export class ApplicationConfig {
+export abstract class ApplicationConfig {
     public static readonly PORT = env.PORT;
     public static readonly ASSETS_PATH = env.ASSETS_PATH;
     public static readonly VIEWS_PATH = env.VIEWS_PATH;

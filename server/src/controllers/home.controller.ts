@@ -1,4 +1,4 @@
-import { ApiExceptionFilter } from '@controllersfilter/api-exception.filter';
+import { ApiExceptionFilter } from '@controllers/filter/api-exception.filter';
 import { Controller, Get, Render, UseFilters } from '@nestjs/common';
 import { ApplicationConfig } from '@src/application.config';
 import * as appAssets from '@src/assets.json';

@@ -1,4 +1,4 @@
-import { ApiExceptionFilter } from '@controllersfilter/api-exception.filter';
+import { ApiExceptionFilter } from '@controllers/filter/api-exception.filter';
 import { Body, Controller, Post, Res, UseFilters } from '@nestjs/common';
 import { AuthenticationService } from '@services/authentication.service';
 import { ApplicationConfig } from '@src/application.config';
@@ -20,10 +20,6 @@ export class AuthenticationController {
         const sessionInfo = await this.authenticationService
             .getSessionInfo(authenticationRequest)
             .toPromise();
-        console.log(
-            sessionInfo,
-            new Date(sessionInfo.maxAge).toLocaleDateString('pt-BR')
-        );
         response.cookie(
             ApplicationConfig.SESSION_COOKIE_NAME,
             sessionInfo.key,
@@ -32,6 +28,6 @@ export class AuthenticationController {
                 expires: new Date(sessionInfo.maxAge),
             }
         );
-        return response.json({ url: ApplicationConfig.ORCHESTRATOR_URL });
+        response.json({ url: ApplicationConfig.ORCHESTRATOR_URL });
     }
 }
