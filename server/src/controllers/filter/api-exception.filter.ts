@@ -20,9 +20,8 @@ export class ApiExceptionFilter implements ExceptionFilter {
     ]);
 
     public catch(exception: any, host: ArgumentsHost) {
-        console.log(exception);
         const context = host.switchToHttp();
-        const response = context.getResponse<Response>();
+        const response: Response = context.getResponse();
         const httpException = this.businessToHttpExceptionMap.get(
             exception.name
         );
@@ -31,10 +30,11 @@ export class ApiExceptionFilter implements ExceptionFilter {
                 status: httpException.status,
                 message: httpException.message,
             });
+        } else {
+            return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+                status: HttpStatus.INTERNAL_SERVER_ERROR,
+                message: MessageErrorEnum.INTERNAL,
+            });
         }
-        return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
-            status: HttpStatus.INTERNAL_SERVER_ERROR,
-            message: MessageErrorEnum.INTERNAL,
-        });
     }
 }

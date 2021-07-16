@@ -6,9 +6,15 @@ const config: Config.InitialOptions = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     collectCoverage: true,
-    coverageDirectory: '../.ci/reports',
+    coverageDirectory: '../.ci/reports/server',
     coverageReporters: ['text', 'clover', 'lcov', 'json-summary'],
     collectCoverageFrom: ['<rootDir>/src/**/*.ts'],
+    coveragePathIgnorePatterns: [
+        '<rootDir>/src/application.config.ts',
+        '<rootDir>/src/main.ts',
+        '<rootDir>/src/login.module.ts',
+        '<rootDir>/src/module-alias.ts',
+    ],
     modulePathIgnorePatterns: ['dist'],
     modulePaths: ['<rootDir>', 'src'],
     moduleNameMapper: {

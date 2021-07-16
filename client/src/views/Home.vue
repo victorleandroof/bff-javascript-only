@@ -1,11 +1,11 @@
 <template>
-  <b-container fluid>
-    <b-row>
-      <b-col sm="12" md="5" lg="5" class="aside-bg">
+  <BContainer fluid data-test-home-page>
+    <BRow>
+      <BCol sm="12" md="5" lg="5" class="aside-bg">
         <Banner />
-      </b-col>
-      <b-col sm="12" md="7" lg="7">
-        <b-row
+      </BCol>
+      <BCol sm="12" md="7" lg="7">
+        <BRow
           class="
             flex-row-fluid
             d-flex
@@ -17,23 +17,26 @@
             mx-auto
           "
         >
-          <b-col cols="12" class="pb-13">
+          <BCol cols="12" class="pb-13">
             <h3
               class="font-weight-bolder text-dark font-size-h4 font-size-h1-lg"
+              data-test-create-account-title
             >
               Bem-Vindo
             </h3>
             <span class="text-muted font-weight-bold font-size-h4"
+              data-test-create-account-subtitle
               >Novo aqui?
-              <b-link
+              <BLink
                 class="text-primary font-weight-bolder"
-                href="/account-create"
-                >Criar uma conta</b-link
+                href="/create-account"
+                data-test-create-account-link
+                >Criar uma conta</BLink
               ></span
             >
-          </b-col>
-          <b-col cols="12" class="pb-3">
-            <b-toast
+          </BCol>
+          <BCol cols="12" class="pb-3">
+            <BToast
               id="invalidForm"
               variant="danger"
               static
@@ -41,71 +44,86 @@
               data-test-toast
             >
               Usuário ou senha Inválido
-            </b-toast>
-          </b-col>
-          <b-col cols="12">
-            <b-form
+            </BToast>
+          </BCol>
+          <BCol cols="12">
+            <BForm
               @submit="onSubmit"
               method="post"
               action="/login"
               data-test-form-login
             >
-              <b-form-group label="Usuário:" label-for="username">
-                <b-form-input
+              <BFormGroup label="Usuário:" label-for="username">
+                <BFormInput
                   id="username"
                   v-model="username"
                   type="text"
-                  data-test-username
-                ></b-form-input>
-              </b-form-group>
-              <b-form-group label="Senha:" label-for="password">
-                <b-form-input
+                  data-test-input-username
+                ></BFormInput>
+              </BFormGroup>
+              <BFormGroup label="Senha:" label-for="password">
+                <BFormInput
                   id="password"
                   v-model="password"
                   type="password"
-                  data-test-password
-                ></b-form-input>
-              </b-form-group>
-              <b-overlay
+                  data-test-input-password
+                ></BFormInput>
+              </BFormGroup>
+              <BOverlay
                 :show="isLoading"
                 rounded
                 opacity="0.6"
                 spinner-small
                 spinner-variant="success"
                 class="d-inline-block"
+                data-test-form-loading
               >
-                <b-button
+                <BButton
                   type="submit"
                   :disabled="isLoading"
                   block
                   variant="success"
-                  data-test-submit
-                  >Entrar</b-button
+                  data-test-form-submit
+                  >Entrar</BButton
                 >
-              </b-overlay>
-            </b-form>
-          </b-col>
-          <b-col cols="12" class="pt-3">
-            <b-link
+              </BOverlay>
+            </BForm>
+          </BCol>
+          <BCol cols="12" class="pt-3">
+            <BLink
               class="text-primary font-weight-bolder"
-              href="/password_reset"
-              >Esqueceu a senha?</b-link
+              href="/reset-password"
+              data-test-reset-password
+              >Esqueceu a senha?</BLink
             >
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
-  </b-container>
+          </BCol>
+        </BRow>
+      </BCol>
+    </BRow>
+  </BContainer>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Banner from "../components/Banner.vue";
+import { BRow, BCol, BContainer, BLink, BToast, BOverlay, BButton, BForm, BFormInput, BFormGroup } from 'bootstrap-vue';
 import { ApiService } from "../services/api";
 import "bootstrap-vue";
 
 @Component({
-  components: { Banner },
+  components: {
+    BRow,
+    BCol,
+    BContainer,
+    BLink,
+    BToast,
+    BOverlay,
+    BButton,
+    BFormInput,
+    BFormGroup,
+    BForm,
+    Banner
+  }
 })
 export default class Home extends Vue {
   public username = "";
@@ -114,7 +132,7 @@ export default class Home extends Vue {
 
   public async onSubmit(event: Event) {
     event.preventDefault();
-    if (!this.isValidForm()) {
+    if (this.isInvalidForm()) {
       this.$bvToast.show("invalidForm");
     } else {
       this.isLoading = true;
@@ -131,14 +149,14 @@ export default class Home extends Vue {
     }
   }
 
-  private isValidForm(): boolean {
+  private isInvalidForm(): boolean {
     return this.isBlank(this.username) && this.isBlank(this.password);
   }
 
   private isBlank(value: string): boolean {
-    if (!value) return false;
-    else if (value.length === 0 || value.trim().length === 0) return false;
-    return true;
+    if (!value) return true;
+    else if (value.length === 0 || value.trim().length === 0) return true;
+    return false;
   }
 }
 </script>

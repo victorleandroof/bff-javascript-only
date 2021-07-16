@@ -70,10 +70,10 @@ export class AuthenticationService {
         } as ISessionInfo;
     }
 
-    private findUserInformation(email: string): Observable<IUserProfile> {
+    private findUserInformation(username: string): Observable<IUserProfile> {
         return this.httpService
             .post(`${ApplicationConfig.USER_MS_URL}/v1/userprofile`, {
-                email,
+                username,
             })
             .pipe(this.mapResponseToObject());
     }

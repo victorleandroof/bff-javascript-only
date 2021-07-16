@@ -19,7 +19,7 @@
     "start:server:debug": "npm run start:server:dev -- --debug",
     "lint": "./node_modules/.bin/eslint 'src/**/*.ts' ",
     "lint:fix": "npm run lint -- --fix",
-    "test": "./node_modules/.bin/jest --detectOpenHandles",
+    "test": "./node_modules/.bin/jest --detectOpenHandles --config ./jest.config.ts",
     "test:watch": "npm run test -- --watch",
     "test:cov": "npm run test -- --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
