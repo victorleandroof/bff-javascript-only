@@ -6,8 +6,8 @@ const port = 4567;
 (async () => {
     const server = mockttp.getLocal();
     
-    server.post("/v1/oauth2/token").thenFromFile(200, join(__dirname, "./requests/login_success/login_response.json"));
-    server.post("/v1/userprofile").thenFromFile(200, join(__dirname, "./requests/login_success/user_response.json"));
+    server.post("/v1/oauth2/token").thenFromFile(200, join(__dirname, "./requests/possua_cadastro/login_response.json"));
+    server.post("/v1/userprofile").thenFromFile(200, join(__dirname, "./requests/possua_cadastro/user_response.json"));
     
     await server.start(port);
 
