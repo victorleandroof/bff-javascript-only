@@ -13,10 +13,10 @@ jest.mock(
 );
 
 describe('RedisImportFactory', () => {
-    const loggerMock = {
-        error: jest.fn(),
-        info: jest.fn(),
-    };
+    // const loggerMock = {
+    //     error: jest.fn(),
+    //     info: jest.fn(),
+    // };
 
     beforeEach(() => {
         jest.clearAllMocks();

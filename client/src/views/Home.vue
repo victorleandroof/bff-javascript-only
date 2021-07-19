@@ -24,7 +24,8 @@
             >
               Bem-Vindo
             </h3>
-            <span class="text-muted font-weight-bold font-size-h4"
+            <span
+              class="text-muted font-weight-bold font-size-h4"
               data-test-create-account-subtitle
               >Novo aqui?
               <BLink
@@ -106,7 +107,18 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import Banner from "../components/Banner.vue";
-import { BRow, BCol, BContainer, BLink, BToast, BOverlay, BButton, BForm, BFormInput, BFormGroup } from 'bootstrap-vue';
+import {
+  BRow,
+  BCol,
+  BContainer,
+  BLink,
+  BToast,
+  BOverlay,
+  BButton,
+  BForm,
+  BFormInput,
+  BFormGroup,
+} from "bootstrap-vue";
 import { ApiService } from "../services/api";
 import "bootstrap-vue";
 
@@ -122,8 +134,8 @@ import "bootstrap-vue";
     BFormInput,
     BFormGroup,
     BForm,
-    Banner
-  }
+    Banner,
+  },
 })
 export default class Home extends Vue {
   public username = "";

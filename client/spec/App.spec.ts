@@ -1,17 +1,15 @@
-import { shallowMount } from '@vue/test-utils';
-import App from '../src/App.vue';
+import { shallowMount } from "@vue/test-utils";
+import App from "../src/App.vue";
 
-
-describe('App', () => {
+describe("App", () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should init component', () => {
+  it("should init component", () => {
     const wrapper = shallowMount(App, {
-      stubs: ['router-view']
+      stubs: ["router-view"],
     });
-    expect(App.name).toBe('App');
+    expect(App.name).toBe("App");
   });
-
 });

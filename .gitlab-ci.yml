@@ -1,0 +1,76 @@
+stages:
+  - version-up
+  - build
+  - lint
+  - unit-test
+  - component-test
+  - deploy
+
+cache: &global_cache
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - node_modules/
+    - .npm/
+
+version-up:
+  image: node:12-alpine3.13
+  stage: version-up
+  before_script:
+    - git remote set-url origin https://${GITLAB_CI_USERNAME}:${GITLAB_CI_TOKEN}@gitlab.com/jobs-victor/bff-login.git
+    - git config --global user.email ${GITLAB_CI_USERNAME}
+    - git config --global user.name 'GITLAB CI'
+  script:
+    - git checkout master
+    - VERSION=$(npm version patch)
+    - cd client
+    - npm version patch
+    - cd ../bff
+    - npm version patch
+    - git add .
+    - git commit -m '[skip ci] version up'
+    - git push origin master
+
+build:
+  image: node:12-alpine3.13
+  stage: build
+  cache:
+    <<: *global_cache
+  script:
+    - npm run install:all
+    - npm run build:prod
+  artifacts:
+    paths:
+      - ./server/dist
+    expire_in: 1 day
+
+lint:
+  image: node:12-alpine3.13
+  stage: lint
+  cache:
+    <<: *global_cache
+  script:
+    - npm run lint
+
+unit-test:
+  stage: unit-test
+  image: node:12-alpine3.13
+  cache:
+    <<: *global_cache
+  script:
+    - npm run test:unit
+  artifacts:
+    paths:
+      - ./.ci/
+    expire_in: 1 day
+
+component-test:
+  stage: component-test
+  image: node:12-alpine3.13
+  cache:
+    <<: *global_cache
+  script:
+    - bash tests/component/run.sh
+  artifacts:
+    paths:
+      - ./.ci/
+    expire_in: 1 day

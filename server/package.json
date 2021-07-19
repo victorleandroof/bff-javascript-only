@@ -5,7 +5,7 @@
   "author": "",
   "scripts": {
     "copy-assets": "mv public ./dist/src/",
-    "prebuild": "rm -rf dist",
+    "prebuild": "rm -rf dist && npm run build:client && npm run build && npm run copy-assets",
     "build": "nest build",
     "format": "prettier --write 'src/**/*.ts'",
     "prestart": "npm run build",
