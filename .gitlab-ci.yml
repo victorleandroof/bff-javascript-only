@@ -16,6 +16,7 @@ version-up:
   image: node:12-alpine3.13
   stage: version-up
   before_script:
+    -  apk update && apk upgrade && apk add --no-cache bash git openssh
     - git remote set-url origin https://${GITLAB_CI_USERNAME}:${GITLAB_CI_TOKEN}@gitlab.com/jobs-victor/bff-login.git
     - git config --global user.email ${GITLAB_CI_USERNAME}
     - git config --global user.name 'GITLAB CI'
