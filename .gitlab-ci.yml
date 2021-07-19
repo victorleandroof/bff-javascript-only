@@ -25,7 +25,7 @@ version-up:
     - VERSION=$(npm version patch)
     - cd client
     - npm version patch
-    - cd ../bff
+    - cd ../server
     - npm version patch
     - git add .
     - git commit -m '[skip ci] version up'
