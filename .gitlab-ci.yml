@@ -8,7 +8,7 @@ cache: &global_cache
   key: $CI_COMMIT_REF_SLUG
   paths:
     - node_modules/
-    - ~/.npm/
+    - /root/.npm/
 
 version-up:
   image: node:12-alpine3.13
@@ -40,6 +40,8 @@ build:
   artifacts:
     paths:
       - ./server/dist
+      - ./server/node_modules
+      - ./server/package.json
     expire_in: 1 day
 
 lint:
