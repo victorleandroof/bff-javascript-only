@@ -4,9 +4,9 @@
   "description": "",
   "author": "",
   "scripts": {
-    "copy-assets": "mv public ./dist/src/",
-    "prebuild": "rm -rf dist && npm run build:client && npm run copy-assets",
-    "build": "nest build",
+    "copy-assets": "mv public  ./dist/src/",
+    "prebuild": "rm -rf dist && npm run build:client",
+    "build": "nest build && npm run copy-assets",
     "format": "prettier --write 'src/**/*.ts'",
     "prestart": "npm run build",
     "start": "node dist/main",

@@ -35,13 +35,15 @@ describe("Banner", () => {
     const wrapper = shallowMount(Banner);
     const bannerTitleElement = wrapper.find(selectors.title);
     expect(bannerTitleElement.text()).toEqual(
-      "A Informação Traduzida em Desenvolvimento"
+      `A Informação Traduzida
+        em Desenvolvimento`
     );
   });
 
   it("should verify banner background", () => {
     const wrapper = shallowMount(Banner);
     const bannerBackgroundElement = wrapper.find(selectors.background);
-    expect(bannerBackgroundElement.classes()).toContain("login-banner");
+    const includeLoginBanner = bannerBackgroundElement.classes().includes("login-banner\n");
+    expect(includeLoginBanner).toBeTruthy();
   });
 });

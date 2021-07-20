@@ -1,5 +1,10 @@
 {
     "collection": "@nestjs/schematics",
     "sourceRoot": "src",
-    "outDir":"./dist"
+    "outDir":"./dist",
+    "compilerOptions": {
+        "assets": [
+            "./public/**/*"
+        ]
+    }
 }
