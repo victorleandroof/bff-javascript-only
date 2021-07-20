@@ -10,7 +10,7 @@ cache: &global_cache
   key: $CI_COMMIT_REF_SLUG
   paths:
     - node_modules/
-    - .npm/
+    - ~/.npm/
 
 version-up:
   image: node:12-alpine3.13
@@ -50,6 +50,7 @@ lint:
   cache:
     <<: *global_cache
   script:
+    - npm run install:all
     - npm run lint
 
 unit-test:
@@ -58,6 +59,7 @@ unit-test:
   cache:
     <<: *global_cache
   script:
+    - npm run install:all
     - npm run test:unit
   artifacts:
     paths:
@@ -69,7 +71,10 @@ component-test:
   image: node:12-alpine3.13
   cache:
     <<: *global_cache
+  before_script:
+    - apk --update add redis
   script:
+    - npm run install:all
     - bash tests/component/run.sh
   artifacts:
     paths:
