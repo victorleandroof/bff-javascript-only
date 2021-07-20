@@ -1,6 +1,6 @@
 {
   "name": "bff-login",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "scripts": {
     "install:all": "npm i && (cd server && npm i) && (cd client && npm i)",
     "lint": "(cd server && npm run lint) && (cd client && npm run lint)",
