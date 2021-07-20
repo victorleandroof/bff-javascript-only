@@ -1,9 +1,7 @@
 stages:
   - version-up
   - build
-  - lint
-  - unit-test
-  - component-test
+  - quality
   - deploy
 
 cache: &global_cache
@@ -46,7 +44,7 @@ build:
 
 lint:
   image: node:12-alpine3.13
-  stage: lint
+  stage: quality
   cache:
     <<: *global_cache
   script:
@@ -54,7 +52,7 @@ lint:
     - npm run lint
 
 unit-test:
-  stage: unit-test
+  stage: quality
   image: node:12-alpine3.13
   cache:
     <<: *global_cache
@@ -67,7 +65,7 @@ unit-test:
     expire_in: 1 day
 
 component-test:
-  stage: component-test
+  stage: quality
   image: node:12-alpine3.13
   cache:
     <<: *global_cache
