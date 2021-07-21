@@ -65,11 +65,11 @@ unit-test:
 
 component-test:
   stage: quality
-  image: node:12-alpine3.13
+  image: alekzonder/puppeteer:latest
   cache:
     <<: *global_cache
   before_script:
-    - apk --update add redis
+    - apt install redis-server
   script:
     - npm run install:all
     - cd tests/component
