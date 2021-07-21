@@ -63,7 +63,7 @@ defineFeature(feature, (test) => {
         });
         page = await browser.newPage();
         await page.goto("http://localhost:8080/login");
-    });
+    },30_000);
 
     afterEach(async () => { 
         await browser?.close?.();

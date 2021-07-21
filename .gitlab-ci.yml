@@ -21,10 +21,8 @@ version-up:
   script:
     - git checkout master
     - VERSION=$(npm version patch)
-    - cd client
-    - npm version patch
-    - cd ../server
-    - npm version patch
+    - cd client && npm version patch
+    - cd ../server && npm version patch
     - git add .
     - git commit -m '[skip ci] version up'
     - git push origin master
@@ -40,7 +38,6 @@ build:
   artifacts:
     paths:
       - ./server/dist
-      - ./server/node_modules
       - ./server/package.json
     expire_in: 1 day
 
@@ -75,8 +72,5 @@ component-test:
     - apk --update add redis
   script:
     - npm run install:all
-    - bash tests/component/run.sh
-  artifacts:
-    paths:
-      - ./.ci/
-    expire_in: 1 day
+    - cd tests/component
+    - sh run.sh
