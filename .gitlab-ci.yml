@@ -58,8 +58,12 @@ unit-test:
     <<: *global_cache
   script:
     - npm run install:all
-    - npm run test:unit
+    - npm run test:unit:ci
   artifacts:
+    reports:
+      junit:
+        - ./server/junit.xml
+        - ./client/junit.xml
     paths:
       - ./.ci/
     expire_in: 1 day
