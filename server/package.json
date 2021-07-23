@@ -9,7 +9,7 @@
     "build": "nest build && npm run copy-assets",
     "format": "prettier --write 'src/**/*.ts'",
     "prestart": "npm run build",
-    "start": "node dist/main",
+    "start": "node dist/src/main.js",
     "build:client": "cd ../client && npm run build",
     "prestart:test": "npm run build",
     "start:test": "node -r dotenv/config ./dist/src/main.js dotenv_config_path=./.env.test",
