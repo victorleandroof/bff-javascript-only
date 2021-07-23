@@ -6,6 +6,7 @@ const config: Config.InitialOptions = {
     preset: 'ts-jest',
     testEnvironment: 'node',
     collectCoverage: true,
+    reporters: ['default', 'jest-junit'],
     coverageDirectory: '../.ci/reports/server',
     coverageReporters: ['text', 'clover', 'lcov', 'json-summary'],
     collectCoverageFrom: ['<rootDir>/src/**/*.ts'],

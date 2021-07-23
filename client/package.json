@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint '{src,spec}/**/*.{ts,vue}' ",
     "sass-lint": "node_modules/.bin/sass-lint-vue src",
     "test": "./node_modules/.bin/jest --detectOpenHandles",
+    "test:ci": "npm run test -- --ci",
     "test:watch": "npm run test -- --watch",
     "test:cov": "npm run test -- --coverage",
     "test:debug": "node --inspect-brk node_modules/.bin/vue-cli-service test:unit --no-cache --watch --runInBand"
@@ -44,6 +45,7 @@
     "eslint-plugin-vue": "^6.2.2",
     "jest": "^26.6.3",
     "jest-fetch-mock": "^3.0.3",
+    "jest-junit": "^12.2.0",
     "jsdom": "^16.6.0",
     "node-sass": "^6.0.1",
     "prettier": "^2.2.1",
@@ -72,13 +74,26 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     },
+    "reporters": ["default", "jest-junit"],
     "snapshotSerializers": [
       "jest-serializer-vue"
     ],
     "testURL": "http://localhost/",
     "collectCoverage": true,
     "coverageDirectory": "../.ci/reports/client",
-    "coverageReporters": ["text", "clover", "lcov", "json-summary"],
-    "collectCoverageFrom": ["<rootDir>/src/**/*.ts",  "<rootDir>/src/**/*.vue", "!<rootDir>/src/**/*.d.ts",  "!<rootDir>/src/router/index.ts", "!<rootDir>/src/main.ts", "!<rootDir>/src/stylesheet/theme.ts"]
+    "coverageReporters": [
+      "text",
+      "clover",
+      "lcov",
+      "json-summary"
+    ],
+    "collectCoverageFrom": [
+      "<rootDir>/src/**/*.ts",
+      "<rootDir>/src/**/*.vue",
+      "!<rootDir>/src/**/*.d.ts",
+      "!<rootDir>/src/router/index.ts",
+      "!<rootDir>/src/main.ts",
+      "!<rootDir>/src/stylesheet/theme.ts"
+    ]
   }
 }

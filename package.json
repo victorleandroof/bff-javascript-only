@@ -8,6 +8,7 @@
     "start:dev": "cd server && npm run start:dev",
     "start:test": "cd server && npm run start:test",
     "test:unit": "(cd server && npm run test) && (cd client && npm run test)",
+    "test:unit:ci": "(cd server && npm run test:ci) && (cd client && npm run test:ci)",
     "test:component": "./node_modules/.bin/jest --config ./tests/component/jest.config.ts",
     "pretest:performance": "npm run start:mock && npm run start:test",
     "test:performance": "k6 run ./tests/performance/login.performance.js --out json=./.ci/reports/performance_results.json",
