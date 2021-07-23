@@ -2,6 +2,7 @@ stages:
   - version-up
   - build
   - quality
+  - quality-gate
   - deploy
 
 cache: &global_cache
@@ -78,3 +79,10 @@ component-test:
     - npm run install:all
     - cd tests/component
     - sh run.sh
+
+test_quality_gate:
+  stage: quality-gate
+  image: alpine
+  script: 
+    - ls
+    - cat .ci/reports/server/coverage-summary.json
