@@ -98,9 +98,9 @@ deploy_dev:
   image: ruby:latest
   script:
     - mkdir devops/deploy
-    - cp -R server/dist
-    - cp views ./devops/deploy
-    - cp ./server/package.json ./devops/deploy
+    - cp -R server/dist devops/deploy
+    - cp views devops/deploy
+    - cp server/package.json devops/deploy
     - cd devops
     - apt-get update -qy
     - apt-get install -y ruby-dev
