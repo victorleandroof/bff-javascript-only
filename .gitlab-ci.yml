@@ -84,9 +84,24 @@ component-test:
     - cd tests/component
     - sh run.sh
 
-test_quality_gate:
+quality_gate_test_unit:
   stage: quality-gate
   image: alpine
+  before_script:
+    - export COVERAGE_MIN=90
+    - apk add jq
   script: 
-    - ls
-    - cat .ci/reports/server/coverage-summary.json
+    - sh devops/quality_gate.sh
+
+deploy_dev:
+  stage: deploy
+  image: ruby:latest
+  script:
+    - mkdir devops/deploy
+    - cp -R server/dist
+    - cp ./server/package.json ./devops/deploy
+    - cd devops
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+    - dpl --provider=heroku --app=bff-login-dev --api-key=$HEROKU_API_KEY
