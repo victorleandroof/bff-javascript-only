@@ -59,7 +59,9 @@ defineFeature(feature, (test) => {
     beforeEach(async () => {
         mockServer.start(4567);
         browser = await launch({
-            headless: true
+            headless: true,
+            executablePath: process.env.CHROME_BIN,
+            args: ['--no-sandbox', '--disable-dev-shm-usage']
         });
         page = await browser.newPage();
         await page.goto("http://localhost:8080/login");
