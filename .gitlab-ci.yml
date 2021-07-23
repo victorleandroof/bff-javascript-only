@@ -72,7 +72,7 @@ component-test:
     - export CHROME_BIN="/usr/bin/chromium-browser"
     - export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD="true"
     - apk update && apk upgrade
-    - apk apk del --no-cache make gcc g++ python binutils-gold gnupg libstdc++
+    - apk add --no-cache udev ttf-freefont chromium 
     - apk --update add redis
   script:
     - npm run install:all
