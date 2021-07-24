@@ -4,7 +4,7 @@
   "scripts": {
     "install:all": "npm i && (cd server && npm i) && (cd client && npm i)",
     "lint": "(cd server && npm run lint) && (cd client && npm run lint)",
-    "build:prod": "cd server && npm run build",
+    "build:prod": "cd server && npm run build:all",
     "start:dev": "cd server && npm run start:dev",
     "start:test": "cd server && npm run start:test",
     "test:unit": "(cd server && npm run test) && (cd client && npm run test)",
