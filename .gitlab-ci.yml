@@ -99,7 +99,7 @@ deploy_dev:
   script:
     - mkdir devops/deploy
     - cp -R server/dist devops/deploy
-    - cp views devops/deploy
+    - cp -R views devops/deploy
     - cp server/package.json devops/deploy
     - cd devops
     - apt-get update -qy
