@@ -2,7 +2,6 @@ stages:
   - version-up
   - build
   - quality
-  - quality-gate
   - deploy
 
 cache: &global_cache
@@ -56,9 +55,13 @@ unit-test:
   image: node:12-alpine3.13
   cache:
     <<: *global_cache
+  before_script:
+    - export COVERAGE_MIN=90
+    - apk add jq
   script:
     - npm run install:all
     - npm run test:unit:ci
+    - sh devops/quality_gate.sh
   artifacts:
     reports:
       junit:
@@ -84,15 +87,6 @@ component-test:
     - cd tests/component
     - sh run.sh
 
-quality_gate_test_unit:
-  stage: quality-gate
-  image: alpine
-  before_script:
-    - export COVERAGE_MIN=90
-    - apk add jq
-  script: 
-    - sh devops/quality_gate.sh
-
 deploy_dev:
   stage: deploy
   image: ruby:latest
@@ -105,4 +99,4 @@ deploy_dev:
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
-    - dpl --provider=heroku --app=bff-login-dev --api-key=$HEROKU_API_KEY
+    - dpl --provider=heroku --app=bff-login-dev --api-key=$HEROKU_API_KEY --skip-cleanup
