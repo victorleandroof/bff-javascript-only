@@ -101,7 +101,7 @@ deploy_dev:
     - cp -R server/dist devops/deploy
     - cp -R views devops/deploy
     - cp server/package.json devops/deploy
-    - cd devops
+    - cd devops/deploy
     - apt-get update -qy
     - apt-get install -y ruby-dev
     - gem install dpl
