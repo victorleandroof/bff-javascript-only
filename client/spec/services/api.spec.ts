@@ -30,7 +30,7 @@ describe("Api", () => {
 
       const response = await ApiService.login(requestLogin);
 
-      expect(postAxiosMock).toBeCalledWith("/login", requestLogin, {
+      expect(postAxiosMock).toBeCalledWith("/", requestLogin, {
         withCredentials: true,
       });
       expect(response.url).toEqual(responseMock.data.url);
