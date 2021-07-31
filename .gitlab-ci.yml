@@ -33,7 +33,6 @@ build:
   cache:
     <<: *global_cache
   script:
-    - export NODE_ENV='production'
     - npm run install:all
     - npm run build:prod
   artifacts:
