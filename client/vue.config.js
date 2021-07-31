@@ -7,7 +7,7 @@ const resolve = (...folder) => {
 
 module.exports = {
   filenameHashing: false,
-  publicPath: process.env.APP_PREFIX,
+  publicPath: process.env.NODE_ENV === 'production' ? '/public' : '/login/public',
   pluginOptions: {
     "style-resources-loader": {
       patterns: [resolve("stylesheet/main.scss")],
