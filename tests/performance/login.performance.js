@@ -19,15 +19,14 @@ export const options = {
 };
 
 export default function () {
-  http.get('http://localhost:8080/login/');
   group('Login Performance Testing', function () {
-    group('Posts endpoint', function () {
+    group('create login', function () {
       const res = http.post(`${baseUrl}/`, {
         username: 'username',
         password: 'password'
       });
       check(res, {
-        'is status code 200': (r) => r.status === 201,
+        'is status code 201': (r) => r.status === 201,
       });
     });
   });

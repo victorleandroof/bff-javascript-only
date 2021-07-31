@@ -1,4 +1,5 @@
 import { ApiExceptionFilter } from '@controllers/filter/api-exception.filter';
+import { Logger } from '@infrastructure/logger/logger';
 import { Body, Controller, Post, Res, UseFilters } from '@nestjs/common';
 import { AuthenticationService } from '@services/authentication.service';
 import { ApplicationConfig } from '@src/application.config';
@@ -17,9 +18,19 @@ export class AuthenticationController {
         @Body() authenticationRequest: AuthenticationRequest,
         @Res() response: Response
     ) {
+        Logger.getInstance().debug(
+            '(AuthenticationController) - authentication'
+        );
+
         const sessionInfo = await this.authenticationService
             .getSessionInfo(authenticationRequest)
             .toPromise();
+
+        Logger.getInstance().info(
+            `(AuthenticationController) - generate session`,
+            ApplicationConfig.ORCHESTRATOR_URL
+        );
+
         response.cookie(
             ApplicationConfig.SESSION_COOKIE_NAME,
             sessionInfo.key,

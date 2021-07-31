@@ -1,5 +1,6 @@
 import {
     HttpModule,
+    Logger,
     MiddlewareConsumer,
     Module,
     NestModule,
@@ -22,7 +23,7 @@ import { RedisModule } from '@infrastructureredis/redis.module';
         ]),
     ],
     controllers: [HomeController, AuthenticationController],
-    providers: [AuthenticationService],
+    providers: [AuthenticationService, Logger],
 })
 export class LoginModule implements NestModule {
     configure(consumer: MiddlewareConsumer) {

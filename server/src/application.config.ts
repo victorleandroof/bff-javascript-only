@@ -16,4 +16,5 @@ export abstract class ApplicationConfig {
     public static readonly USER_MS_URL = env.USER_MS_URL;
     public static readonly COOKIE_DOMAIN_VALIDATION =
         env.COOKIE_DOMAIN_VALIDATION;
+    public static readonly LOG_LEVEL = env.LOG_LEVEL || 'debug';
 }

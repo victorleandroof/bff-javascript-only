@@ -85,7 +85,7 @@ component-test:
   script:
     - npm run install:all
     - cd tests/component
-    - sh run.sh
+    - sh start.sh
 
 deploy_dev:
   stage: deploy

@@ -1,4 +1,5 @@
 import { ApiExceptionFilter } from '@controllers/filter/api-exception.filter';
+import { Logger } from '@infrastructure/logger/logger';
 import { Controller, Get, Render, UseFilters } from '@nestjs/common';
 import { ApplicationConfig } from '@src/application.config';
 import * as appAssets from '@src/assets.json';
@@ -6,9 +7,12 @@ import * as appAssets from '@src/assets.json';
 @Controller(`${ApplicationConfig.APP_PREFIX}`)
 @UseFilters(ApiExceptionFilter)
 export class HomeController {
+    constructor(private readonly logger: Logger) {}
+
     @Get()
     @Render('index')
     public async index() {
+        Logger.getInstance().info('(HomeController) - get index page');
         const assetsResponse = this.generateAssets();
         return {
             ...assetsResponse,

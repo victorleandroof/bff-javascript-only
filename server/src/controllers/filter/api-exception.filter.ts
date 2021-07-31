@@ -1,3 +1,4 @@
+import { Logger } from '@infrastructurelogger/logger';
 import {
     ArgumentsHost,
     Catch,
@@ -25,13 +26,14 @@ export class ApiExceptionFilter implements ExceptionFilter {
         const httpException = this.businessToHttpExceptionMap.get(
             exception.name
         );
+        Logger.getInstance().error('(ApiExceptionFilter) - catch', exception);
         if (httpException) {
-            return response.status(httpException.status).json({
+            return response.status(httpException.status).send({
                 status: httpException.status,
                 message: httpException.message,
             });
         } else {
-            return response.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
+            return response.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
                 status: HttpStatus.INTERNAL_SERVER_ERROR,
                 message: MessageErrorEnum.INTERNAL,
             });

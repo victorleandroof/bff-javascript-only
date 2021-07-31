@@ -6,6 +6,7 @@ import {
 } from './redis.interfaces';
 import { ApplicationConfig } from '@src/application.config';
 import { ClusterOptions, RedisOptions } from 'ioredis';
+import { Logger } from '@infrastructure/logger/logger';
 
 export class RedisImportFactory {
     public static create(options?: ClusterOptions | RedisOptions) {
@@ -33,27 +34,32 @@ export class RedisImportFactory {
             {
                 event: RedisConnectionEvent.error,
                 listener: (error) =>
-                    console.error(`[RedisListener] - Error: ${error}`),
+                    Logger.getInstance().error('[RedisListener]', error),
             },
             {
                 event: RedisConnectionEvent.connect,
-                listener: () => console.info(`[RedisListener] - Connected`),
+                listener: () =>
+                    Logger.getInstance().info(`[RedisListener] - Connected`),
             },
             {
                 event: RedisConnectionEvent.ready,
-                listener: () => console.info(`[RedisListener] - Ready`),
+                listener: () =>
+                    Logger.getInstance().info(`[RedisListener] - Ready`),
             },
             {
                 event: RedisConnectionEvent.close,
-                listener: () => console.info(`[RedisListener] - Closed`),
+                listener: () =>
+                    Logger.getInstance().info(`[RedisListener] - Closed`),
             },
             {
                 event: RedisConnectionEvent.reconnecting,
-                listener: () => console.info(`[RedisListener] - Reconnecting`),
+                listener: () =>
+                    Logger.getInstance().info(`[RedisListener] - Reconnecting`),
             },
             {
                 event: RedisConnectionEvent.end,
-                listener: () => console.info(`[RedisListener] - Ended`),
+                listener: () =>
+                    Logger.getInstance().info(`[RedisListener] - Ended`),
             },
         ];
     }
