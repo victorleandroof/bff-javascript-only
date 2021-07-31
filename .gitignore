@@ -2,3 +2,4 @@ node_modules
 .ci
 *.log
 junit.xml
+dump.rdb
