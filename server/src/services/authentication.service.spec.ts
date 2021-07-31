@@ -10,6 +10,7 @@ import {
     ISessionInfo,
 } from './interfaces/authentication.interface';
 import { AuthenticationException } from './exceptions';
+import { Logger } from '@infrastructure/logger/logger';
 
 jest.mock('@src/application.config', () => ({
     ApplicationConfig: {
@@ -26,6 +27,11 @@ describe('AuthenticationService', () => {
     const keyMock =
         'd0ba93f7e3ba9fa0050b77f38ac72376e20f9bb147f9908b410e1e4915bf74f1';
     const baseTime = 1626304293407;
+    const loggerMock = {
+        info: jest.fn(),
+        debug: jest.fn(),
+        error: jest.fn(),
+    };
     const loginRequest: ILogin = {
         password: '123@123',
         username: 'mock',
@@ -65,6 +71,9 @@ describe('AuthenticationService', () => {
         jest.spyOn(global.Date, 'now').mockImplementation(() => baseTime);
         redisClientMock = createMock<RedisClient>();
         httpServiceMock = createMock<HttpService>();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        jest.spyOn(Logger, 'getInstance').mockImplementation(() => loggerMock);
         authenticationService = new AuthenticationService(
             redisClientMock,
             httpServiceMock

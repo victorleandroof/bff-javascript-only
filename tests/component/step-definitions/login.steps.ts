@@ -27,7 +27,6 @@ let browser: Browser;
 let page: Page;
 const mockServer: mockttp.Mockttp = mockttp.getLocal();;
 
-
 const typeUsernameInput = (and: DefineStepFunction) => {
     and(/^preencher campo usuário com valor "(.*)"$/, async (username: string) => {
         await page.type(seletorcs.inputUsername, username);
@@ -59,12 +58,12 @@ defineFeature(feature, (test) => {
     beforeEach(async () => {
         mockServer.start(4567);
         browser = await launch({
-            headless: true,
+            headless: false,
             executablePath: process.env.CHROME_BIN,
             args: ['--no-sandbox', '--disable-dev-shm-usage']
         });
         page = await browser.newPage();
-        await page.goto("http://localhost:8080/login");
+        await page.goto("http://localhost:8080/");
     },30_000);
 
     afterEach(async () => { 

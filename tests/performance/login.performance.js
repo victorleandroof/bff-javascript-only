@@ -1,7 +1,7 @@
 import http from 'k6/http';
 import { check, group } from 'k6';
 
-const baseUrl = 'http://localhost:8080/login';
+const baseUrl = 'http://localhost:8080/';
 
 export const options = {
   vus: 50,

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ApplicationConfig } from '@srcapplication.config';
+import { ApplicationConfig } from '@src/application.config';
 import * as winston from 'winston';
 
 @Injectable()

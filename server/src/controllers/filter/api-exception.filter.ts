@@ -1,4 +1,4 @@
-import { Logger } from '@infrastructurelogger/logger';
+import { Logger } from '@infrastructure/logger/logger';
 import {
     ArgumentsHost,
     Catch,

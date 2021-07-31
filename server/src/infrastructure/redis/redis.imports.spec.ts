@@ -1,4 +1,6 @@
 import { RedisImportFactory } from './redis.imports';
+import { Logger } from '@infrastructure/logger/logger';
+import * as winston from 'winston';
 
 jest.mock(
     '@src/application.config',
@@ -13,10 +15,17 @@ jest.mock(
 );
 
 describe('RedisImportFactory', () => {
-    // const loggerMock = {
-    //     error: jest.fn(),
-    //     info: jest.fn(),
-    // };
+    const loggerMock = {
+        info: jest.fn(),
+        debug: jest.fn(),
+        error: jest.fn(),
+    };
+
+    afterEach(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        jest.spyOn(Logger, 'getInstance').mockImplementation(() => loggerMock);
+    });
 
     beforeEach(() => {
         jest.clearAllMocks();
@@ -33,19 +42,19 @@ describe('RedisImportFactory', () => {
         });
     });
 
-    it('should return log message for redis listeners and validate logs to kibana dashboard', () => {
+    it('should return log message for redis listeners and validate logsW', () => {
         const redisImport = RedisImportFactory.create();
         callAllListeners(redisImport.listeners);
-        // expect(loggerMock.error.mock.calls).toEqual([
-        //     ['[RedisListener] - Error: myTest'],
-        // ]);
-        // expect(loggerMock.info.mock.calls).toEqual([
-        //     ['[RedisListener] - Connected'],
-        //     ['[RedisListener] - Ready'],
-        //     ['[RedisListener] - Closed'],
-        //     ['[RedisListener] - Reconnecting'],
-        //     ['[RedisListener] - Ended'],
-        // ]);
+        expect(loggerMock.error.mock.calls).toEqual([
+            ['(RedisListener)', 'myTest'],
+        ]);
+        expect(loggerMock.info.mock.calls).toEqual([
+            ['(RedisListener) - Connected'],
+            ['(RedisListener) - Ready'],
+            ['(RedisListener) - Closed'],
+            ['(RedisListener) - Reconnecting'],
+            ['(RedisListener) - Ended'],
+        ]);
     });
 
     function callAllListeners(listeners) {

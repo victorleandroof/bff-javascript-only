@@ -2,6 +2,7 @@ import { DeepMocked, createMock } from '@golevelup/nestjs-testing';
 import { Response, Request } from 'express';
 import { RedisClient } from '@infrastructure/redis/redis.interfaces';
 import { AuthenticationMiddleware } from './authentication.middleware';
+import { Logger } from '@infrastructure/logger/logger';
 
 jest.mock('@src/application.config', () => ({
     ApplicationConfig: {
@@ -17,6 +18,13 @@ describe('AuthenticationMiddleware', () => {
             session: 'sessionValueMock',
         },
     } as any as Request;
+
+    const loggerMock = {
+        info: jest.fn(),
+        debug: jest.fn(),
+        error: jest.fn(),
+    };
+
     const nextFunctionMock = jest.fn();
     let authenticationMiddleware: AuthenticationMiddleware;
     let redisClientMock: DeepMocked<RedisClient>;
@@ -25,6 +33,9 @@ describe('AuthenticationMiddleware', () => {
     beforeEach(() => {
         redisClientMock = createMock<RedisClient>();
         responseMock = createMock<Response>();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        jest.spyOn(Logger, 'getInstance').mockImplementation(() => loggerMock);
         authenticationMiddleware = new AuthenticationMiddleware(
             redisClientMock
         );

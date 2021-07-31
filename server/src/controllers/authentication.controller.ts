@@ -6,7 +6,7 @@ import { ApplicationConfig } from '@src/application.config';
 import { Response } from 'express';
 import { AuthenticationRequest } from './requests/authentication.request';
 
-@Controller(`${ApplicationConfig.APP_PREFIX}`)
+@Controller('/')
 @UseFilters(ApiExceptionFilter)
 export class AuthenticationController {
     constructor(

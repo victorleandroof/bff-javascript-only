@@ -13,6 +13,7 @@ import { ApplicationConfig } from '@src/application.config';
 import { v4 as uuid } from 'uuid';
 import { forkJoin, Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
+import { Logger } from '@infrastructure/logger/logger';
 
 @Injectable()
 export class AuthenticationService {
@@ -57,6 +58,9 @@ export class AuthenticationService {
     }
 
     private saveSessionOnRedis(authenticationSession: IAuthenticationSession) {
+        Logger.getInstance().debug(
+            '(AuthenticationService) - saveSessionOnRedis'
+        );
         const key = this.getCacheKey(authenticationSession.userId);
         this.redisClient.set(
             key,
@@ -71,6 +75,9 @@ export class AuthenticationService {
     }
 
     private findUserInformation(username: string): Observable<IUserProfile> {
+        Logger.getInstance().debug(
+            '(AuthenticationService) - findUserInformation'
+        );
         return this.httpService
             .post(`${ApplicationConfig.USER_MS_URL}/v1/userprofile`, {
                 username,
@@ -79,6 +86,7 @@ export class AuthenticationService {
     }
 
     private getOAuth2Token(iLogin: ILogin): Observable<IOauth> {
+        Logger.getInstance().debug('(AuthenticationService) - getOAuth2Token');
         return this.httpService
             .post(`${ApplicationConfig.LOGIN_MS_URL}/v1/oauth2/token`, iLogin)
             .pipe(this.mapResponseToObject());

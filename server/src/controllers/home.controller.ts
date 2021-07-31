@@ -4,11 +4,9 @@ import { Controller, Get, Render, UseFilters } from '@nestjs/common';
 import { ApplicationConfig } from '@src/application.config';
 import * as appAssets from '@src/assets.json';
 
-@Controller(`${ApplicationConfig.APP_PREFIX}`)
+@Controller('/')
 @UseFilters(ApiExceptionFilter)
 export class HomeController {
-    constructor(private readonly logger: Logger) {}
-
     @Get()
     @Render('index')
     public async index() {

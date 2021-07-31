@@ -1,4 +1,6 @@
 import { HomeController } from './home.controller';
+import { Logger } from '@infrastructure/logger/logger';
+import * as winston from 'winston';
 
 jest.mock('@src/assets.json', () => ({
     app: { css: '/login/public/css/app.css', js: '/login/public/js/app.js' },
@@ -22,6 +24,12 @@ jest.mock('@src/application.config', () => ({
 describe('authenticationController', () => {
     let homeController: HomeController;
 
+    const loggerMock = {
+        info: jest.fn(),
+        debug: jest.fn(),
+        error: jest.fn(),
+    };
+
     const responseResult = {
         baseUrl: 'login',
         scripts: [
@@ -43,6 +51,9 @@ describe('authenticationController', () => {
     };
 
     beforeEach(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        jest.spyOn(Logger, 'getInstance').mockImplementation(() => loggerMock);
         homeController = new HomeController();
     });
 

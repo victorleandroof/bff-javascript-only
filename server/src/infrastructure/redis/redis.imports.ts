@@ -34,32 +34,32 @@ export class RedisImportFactory {
             {
                 event: RedisConnectionEvent.error,
                 listener: (error) =>
-                    Logger.getInstance().error('[RedisListener]', error),
+                    Logger.getInstance().error('(RedisListener)', error),
             },
             {
                 event: RedisConnectionEvent.connect,
                 listener: () =>
-                    Logger.getInstance().info(`[RedisListener] - Connected`),
+                    Logger.getInstance().info(`(RedisListener) - Connected`),
             },
             {
                 event: RedisConnectionEvent.ready,
                 listener: () =>
-                    Logger.getInstance().info(`[RedisListener] - Ready`),
+                    Logger.getInstance().info(`(RedisListener) - Ready`),
             },
             {
                 event: RedisConnectionEvent.close,
                 listener: () =>
-                    Logger.getInstance().info(`[RedisListener] - Closed`),
+                    Logger.getInstance().info(`(RedisListener) - Closed`),
             },
             {
                 event: RedisConnectionEvent.reconnecting,
                 listener: () =>
-                    Logger.getInstance().info(`[RedisListener] - Reconnecting`),
+                    Logger.getInstance().info(`(RedisListener) - Reconnecting`),
             },
             {
                 event: RedisConnectionEvent.end,
                 listener: () =>
-                    Logger.getInstance().info(`[RedisListener] - Ended`),
+                    Logger.getInstance().info(`(RedisListener) - Ended`),
             },
         ];
     }

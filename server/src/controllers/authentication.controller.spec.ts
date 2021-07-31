@@ -5,6 +5,8 @@ import { Response } from 'express';
 import { ISessionInfo } from '@services/interfaces/authentication.interface';
 import { AuthenticationRequest } from '@controllers/requests/authentication.request';
 import { of } from 'rxjs';
+import { Logger } from '@infrastructure/logger/logger';
+import * as winston from 'winston';
 
 jest.mock('@src/application.config', () => ({
     ApplicationConfig: {
@@ -23,6 +25,12 @@ describe('authenticationController', () => {
         password: '123456',
         username: 'user',
     };
+    const loggerMock = {
+        info: jest.fn(),
+        debug: jest.fn(),
+        error: jest.fn(),
+    };
+
     let authenticationController: AuthenticationController;
     let authenticationServiceMock: DeepMocked<AuthenticationService>;
     let responseMock: DeepMocked<Response>;
@@ -30,6 +38,9 @@ describe('authenticationController', () => {
     beforeEach(() => {
         authenticationServiceMock = createMock<AuthenticationService>();
         responseMock = createMock<Response>();
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        jest.spyOn(Logger, 'getInstance').mockImplementation(() => loggerMock);
         authenticationController = new AuthenticationController(
             authenticationServiceMock
         );

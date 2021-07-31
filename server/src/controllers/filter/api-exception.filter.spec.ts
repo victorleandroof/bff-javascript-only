@@ -1,14 +1,22 @@
 import { createMock, DeepMocked } from '@golevelup/nestjs-testing';
+import { Logger } from '@infrastructure/logger/logger';
 import { ArgumentsHost, HttpStatus } from '@nestjs/common';
 import { AuthenticationException } from '@services/exceptions';
 import { ApiExceptionFilter } from './api-exception.filter';
 import { MessageErrorEnum } from './exception-message.enum';
+import * as winston from 'winston';
 
 describe('ApiExceptionFilter', () => {
-    const responseJsonMock = jest.fn();
+    const responseSendMock = jest.fn();
     const responseMock = {
-        status: jest.fn(() => ({ json: responseJsonMock })),
+        status: jest.fn(() => ({ send: responseSendMock })),
     };
+    const loggerMock = {
+        info: jest.fn(),
+        debug: jest.fn(),
+        error: jest.fn(),
+    } as any as winston.Logger;
+
     let apiExceptionFilter: ApiExceptionFilter;
     let argumentsHostMock: DeepMocked<ArgumentsHost>;
 
@@ -23,6 +31,7 @@ describe('ApiExceptionFilter', () => {
                 };
             }
         );
+        jest.spyOn(Logger, 'getInstance').mockImplementation(() => loggerMock);
         apiExceptionFilter = new ApiExceptionFilter();
     });
 
@@ -39,7 +48,7 @@ describe('ApiExceptionFilter', () => {
         expect(responseMock.status.mock.calls).toEqual([
             [HttpStatus.INTERNAL_SERVER_ERROR],
         ]);
-        expect(responseJsonMock.mock.calls).toEqual([
+        expect(responseSendMock.mock.calls).toEqual([
             [
                 {
                     status: HttpStatus.INTERNAL_SERVER_ERROR,
@@ -58,7 +67,7 @@ describe('ApiExceptionFilter', () => {
         expect(responseMock.status.mock.calls).toEqual([
             [HttpStatus.INTERNAL_SERVER_ERROR],
         ]);
-        expect(responseJsonMock.mock.calls).toEqual([
+        expect(responseSendMock.mock.calls).toEqual([
             [
                 {
                     status: HttpStatus.INTERNAL_SERVER_ERROR,
