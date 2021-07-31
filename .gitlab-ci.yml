@@ -33,6 +33,7 @@ build:
   cache:
     <<: *global_cache
   script:
+    - export APP_PREFIX='/'
     - npm run install:all
     - npm run build:prod
   artifacts:
