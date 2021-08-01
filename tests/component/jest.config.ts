@@ -8,6 +8,7 @@ const config: Config.InitialOptions = {
   collectCoverage: false,
   modulePathIgnorePatterns: ['dist'],
   modulePaths: ['<rootDir>', 'src'],
+  setupFilesAfterEnv: ['./regression/config.ts'],
   testMatch: [
     "**/*.steps.ts"
   ]

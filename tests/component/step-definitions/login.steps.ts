@@ -58,7 +58,7 @@ defineFeature(feature, (test) => {
     beforeEach(async () => {
         mockServer.start(4567);
         browser = await launch({
-            headless: false,
+            headless: true,
             executablePath: process.env.CHROME_BIN,
             args: ['--no-sandbox', '--disable-dev-shm-usage']
         });

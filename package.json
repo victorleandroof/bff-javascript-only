@@ -9,7 +9,7 @@
     "start:test": "cd server && npm run start:test",
     "test:unit": "(cd server && npm run test) && (cd client && npm run test)",
     "test:unit:ci": "(cd server && npm run test:ci) && (cd client && npm run test:ci)",
-    "test:component": "./node_modules/.bin/jest --config ./tests/component/jest.config.ts",
+    "test:component": "./node_modules/.bin/jest  --runInBand  --config ./tests/component/jest.config.ts",
     "test:performance": "k6 run ./tests/performance/login.performance.js --out json=./.ci/reports/performance_results.json",
     "sass-lint": "(cd client && npm run sass-lint)",
     "test": "(cd server && npm run test) && (cd client && npm run test)",
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@types/jest": "^26.0.24",
+    "@types/jest-image-snapshot": "^4.3.1",
     "@types/node": "^14.17.5",
     "@types/puppeteer": "^5.4.4",
     "@types/supertest": "^2.0.11",
