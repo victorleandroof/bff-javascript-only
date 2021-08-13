@@ -12,7 +12,7 @@ export class Logger {
     public static getInstance() {
         if (!Logger.loggerWinston) {
             Logger.loggerWinston = winston.createLogger({
-                format: winston.format.combine(Logger.custonFormat()),
+                format: winston.format.combine(Logger.customFormat()),
                 transports: new winston.transports.Console(),
                 defaultMeta: { service: 'bff-login' },
                 level: ApplicationConfig.LOG_LEVEL,
@@ -21,7 +21,7 @@ export class Logger {
         return this.loggerWinston;
     }
 
-    private static custonFormat(): any {
+    public static customFormat(): any {
         return winston.format.printf((info) => {
             if (info.meta instanceof Error) {
                 return JSON.stringify({
