@@ -37,6 +37,7 @@ export class AuthenticationService {
                     userId: results.userInformation.user_id,
                     created_at: currentDate,
                     expiration_at: expirationDate,
+                    refresh_token: results.oAuthToken.refresh_token,
                 } as IAuthenticationSession;
             }),
             map((authenticationSession) => {
